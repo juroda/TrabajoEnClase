@@ -1,0 +1,142 @@
+App.js
+ /*todo componente de react tiene un render, que es el que devuelve las etiquetas html 
+    en el return no se puede devolver mas de una etiqueta.
+ <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+        <componente/>
+      </div>
+      const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((numbers) =>
+  <li>{numbers}</li>
+);
+
+ReactDOM.render(
+  <ul>{listItems}</ul>,
+  document.getElementById('root')
+);
+    */
+
+
+import React, { Component } from 'react';
+
+import PropTypes from 'prop-types';
+
+
+ export class Animal extends React.PureComponent{  /* vimos import export atributos levantados en una variable van sin comillas cambiamos el nombre y lo exportamos pure components significa que no tiene estados */
+    
+    render (){
+        //this.props.nombre
+        //this.props.tipo
+        //this.props.edad
+
+        const {nombre, tipo, edad, imagen} = this.props;
+        return(
+            <article>
+            <h3>{nombre}</h3>
+            <p>Tipo: {tipo}</p>
+            <p>Edad: {edad}</p>
+            <p>Imagen:</p>
+            <img src={imagen} />
+            <hr/>
+            </article>
+        );
+    }
+
+}
+
+const tiposAnimales=[
+    'perro','gato','foca','puma'
+];
+/*hace un chequeo estatico de los tipos de datos/propiedades, es la funcion del proptypes
+En la carpeta my-app instalamos lo que es llamado props types, osea dejamos de correr el programa y colocamos la opcion npm */
+Animal.propsTypes = {
+    nombre: PropTypes.string.isRequired,
+    tipo: PropTypes.oneOf(tiposAnimales).isRequired,
+    edad: PropTypes.number.isRequired,
+
+};
+
+export default Animal;
+
+/*en el buscador buscamos npm react props */
+
+
+
+import React, { Component } from 'react';
+//import logo from './logo.svg';
+import './App.css';
+import Animal from './animal';
+
+class Componente extends Component {
+    /*Estamos trabajando dentro del state*/
+
+    constructor(props){
+
+        super(props);
+        this.state = {
+
+            titulo :  'Vamos a ver el state!',
+            subtitulo : 'Vamos a trabajar un poco de no se que ',
+            imagen1 : 'https://www.google.com.ar/search?q=imagenes&rlz=1C1CHBF_esAR807AR807&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjYt4rVkPXcAhVBC5AKHelxDVgQ_AUICigB&biw=1366&bih=669#imgrc=JPA7LQuCd8ZimM:',
+            animales : [
+                {nombre: 'Jose', tipo: 'perro', edad: 10, imagen: 'https://www.google.com.ar/search?q=imagenes&rlz=1C1CHBF_esAR807AR807&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjYt4rVkPXcAhVBC5AKHelxDVgQ_AUICigB&biw=1366&bih=669#imgdii=VMPIIoDFRSNYBM:&imgrc=JPA7LQuCd8ZimM:'},
+                {nombre: 'Tabitha', tipo: 'gata', edad: 1, imagen: 'https://www.google.com.ar/search?q=imagenes&rlz=1C1CHBF_esAR807AR807&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjYt4rVkPXcAhVBC5AKHelxDVgQ_AUICigB&biw=1366&bih=669#imgdii=VMPIIoDFRSNYBM:&imgrc=JPA7LQuCd8ZimM:'},
+                {nombre: 'Rita', tipo: 'gata', edad: 2,imagen: 'https://www.google.com.ar/search?q=imagenes&rlz=1C1CHBF_esAR807AR807&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjYt4rVkPXcAhVBC5AKHelxDVgQ_AUICigB&biw=1366&bih=669#imgdii=VMPIIoDFRSNYBM:&imgrc=JPA7LQuCd8ZimM:' }/*creamos varios objetos dentro de un arraid/lista  como quieras llamarlo*/
+            ]
+        };
+    }
+/*Acordate que son dos puntos, yo por error ponia el simbolo = hablo de cuando especificamos el state*/
+  render() {
+      const { titulo ,
+        subtitulo,
+        imagen,
+        animales,
+    } = this.state;
+      
+      return(
+        <section>
+            <h2>{titulo}</h2>
+            <p>{subtitulo}</p>
+            <img src={imagen} />
+
+            <h2>Lista de Animales:</h2>
+
+            {animales.map(animal => <Animal
+            nombre = {animal.nombre}
+            tipo ={animal.tipo}
+            edad = {animal.edad}
+            imagen = {animal.imagen}
+            />
+            )}
+
+        </section>
+      );
+  }
+/*      const {persona} = this.props;
+      const {nombreComponente} = this.state;
+      - render -> retorna html
+- props -> this.props -> nombre="Pepe"
+- constructor() -> class React.Component
+-state() -> objeto contenedor del Component
+- componentDidMount() -> se ejecuta una vez el componente este dentro del DOM
+-JSX -> mezcla de js html
+*/
+//al abrir llaves dentro de la etiqueta se puede colocar una variable.
+//los componentes tienen propiedades, estas son una manera de cambio de configuracion o configuracion nueva para el componente
+//console.log(this.props);
+//    const persona = 'Yoca';  const { persona } = this.props;
+
+}
+
+export default Componente;
+
+
+
+
+
